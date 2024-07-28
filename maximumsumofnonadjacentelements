@@ -1,0 +1,40 @@
+from os import *
+from sys import *
+from collections import *
+from math import *
+
+from sys import stdin
+def func(ind,nums,dp):
+    if ind==0:
+        return nums[ind]
+    if ind<0:
+        return 0
+    if dp[ind]!=-1:
+        return dp[ind]
+
+    pick=nums[ind]+func(ind-2,nums,dp)
+    np=0+func(ind-1,nums,dp)
+    dp[ind]=max(pick,np)
+    return dp[ind]
+    
+
+
+
+
+def maximumNonAdjacentSum(nums):    
+    # Write your code here.
+    pass
+    n=len(nums)
+    dp=[-1]*n
+    return func(n-1,nums,dp)
+
+# Main.
+t = int(stdin.readline().rstrip())
+
+while t > 0:
+    
+    n = int(stdin.readline().rstrip())
+    arr = list(map(int, stdin.readline().rstrip().split(" ")))
+    print(maximumNonAdjacentSum(arr))
+    
+    t -= 1
