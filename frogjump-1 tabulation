@@ -1,0 +1,29 @@
+#User function Template for python3
+
+class Solution:
+    def minimumEnergy(self, height, n):
+        # Code here
+        prev1,prev2=0,0
+        for ind in range(1,n):
+            left=prev1+abs(height[ind]-height[ind-1])
+            right=float('inf')
+            if ind>1:
+                right=prev2+abs(height[ind]-height[ind-2])
+            curr=min(left,right)
+            prev2=prev1
+            prev1=curr
+        return prev1
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+if __name__ == '__main__':
+    t = int(input())
+    for _ in range(t):
+        n = int(input())
+        height = list(map(int, input().split()))
+        ob = Solution()
+        print(ob.minimumEnergy(height, n))
+# } Driver Code Ends
