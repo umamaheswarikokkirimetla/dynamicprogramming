@@ -1,0 +1,27 @@
+from typing import *
+
+  
+def ninjaTraining(n: int, points: List[List[int]]) -> int:
+
+    # Write your code here.
+    dp=[[-1 for j in range(4)] for i in range(n)]
+    def func(day,last,points,dp):
+        if dp[day][last]!=-1:
+            return dp[day][last]
+        if day==0:
+            maxi=0
+            for i in range(3):
+                if i != last:
+                    maxi=max(maxi,points[0][i])
+            dp[day][last]=maxi
+            return dp[day][last]
+        maxi = 0
+    
+        for i in range(3):
+            if i != last:
+                # Calculate the total points for the current day's activity and recursively call for the previous day.
+                activity = points[day][i] + func(day - 1, i, points, dp)
+                maxi = max(maxi, activity)
+        dp[day][last] = maxi
+        return dp[day][last]
+    return func(n-1,3,points,dp)
