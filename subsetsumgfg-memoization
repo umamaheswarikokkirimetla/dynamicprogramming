@@ -1,0 +1,46 @@
+#User function Template for python3
+
+class Solution:
+    def isSubsetSum (self, N, arr, sum):
+        # code here 
+        dp=[[-1 for j in range(sum+1)] for i in range(N)]
+        def func(ind,target,arr,dp):
+            if target==0:
+                return True
+            if ind==0:
+                return arr[0]==target
+            if dp[ind][target]!=-1:
+                return dp[ind][target]
+            nt=func(ind-1,target,arr,dp)
+            take=False
+            if arr[ind]<=target:
+                take=func(ind-1,target-arr[ind],arr,dp)
+            dp[ind][target]=nt or take
+            return dp[ind][target]
+        return func(N-1,sum,arr,dp)
+        
+        
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+if __name__ == '__main__': 
+    t = int (input ())
+    for _ in range (t):
+        N = int(input())
+        arr = input().split()
+        for itr in range(N):
+            arr[itr] = int(arr[itr])
+        sum = int(input())
+
+        ob = Solution()
+        if ob.isSubsetSum(N,arr,sum)==True:
+            print(1)
+        else :
+            print(0)
+            
+        
+
+# } Driver Code Ends
