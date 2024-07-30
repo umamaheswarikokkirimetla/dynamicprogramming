@@ -1,0 +1,27 @@
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        def func(ind,target,arr,dp):
+            if target==0:
+                return True
+            if ind==0:
+                return arr[0]==target
+            if dp[ind][target]!=-1:
+                return dp[ind][target]
+            nt=func(ind-1,target,arr,dp)
+            taken=False
+            if arr[ind]<=target:
+                taken=func(ind-1,target-arr[ind],arr,dp)
+            dp[ind][target]=nt or taken
+            return dp[ind][target]
+        n=len(nums)
+        ts=sum(nums)
+        if ts % 2 == 1:
+            return False
+        else:
+            k=ts//2
+            dp=[[-1 for i in range(k+1)] for j in range(n)]
+            return func(n-1,k,nums,dp)
+
+
+
+        
